@@ -16,6 +16,8 @@ Discourse::Application.routes.draw do
   match "/404", to: "exceptions#not_found", via: [:get, :post]
   get "/404-body" => "exceptions#not_found_body"
 
+  get "/hello" => "hello#index"
+
   post "webhooks/mailgun"  => "webhooks#mailgun"
   post "webhooks/sendgrid" => "webhooks#sendgrid"
   post "webhooks/mailjet"  => "webhooks#mailjet"
@@ -398,7 +400,7 @@ Discourse::Application.routes.draw do
   get "posts/:username/flagged" => "posts#flagged_posts", constraints: {username: USERNAME_ROUTE_FORMAT}
 
   get "groups/:id.json" => 'groups#show', constraints: {id: USERNAME_ROUTE_FORMAT}, defaults: {format: 'json'}
-  
+
   resources :groups, id: USERNAME_ROUTE_FORMAT do
     get "posts.rss" => "groups#posts_feed", format: :rss
     get "mentions.rss" => "groups#mentions_feed", format: :rss
